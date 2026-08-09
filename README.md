@@ -3,7 +3,7 @@
 
 A clean, highly visual, and responsive weather application built with React. It features a modern **glassmorphism** ("frosted glass") design that dynamically changes its look and feel based on the live weather forecast.
 
- **[Check out the Live App]((https://weather-app-rib4.vercel.app/))**
+ **[Check out the Live App] - ((https://weather-app-rib4.vercel.app/))**
 
 ---
 
