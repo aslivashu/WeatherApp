@@ -1,59 +1,80 @@
-Hi there! Welcome to my Weather App repository.
 
-I built this project because I wanted a clean, highly visual way to check the weather. Instead of just giving you a boring list of numbers, this app actually changes its entire look and feel based on the forecast. It uses a modern "frosted glass" design (glassmorphism) that looks great on both a large desktop monitor and your phone.
+# Weather App
 
-What it does
-Real-time forecasting: You can type in any city in the world, and it will fetch the current weather, "feels like" temperature, daily highs/lows, humidity, atmospheric pressure, and sunrise/sunset times.
+A clean, highly visual, and responsive weather application built with React. It features a modern **glassmorphism** ("frosted glass") design that dynamically changes its look and feel based on the live weather forecast.
 
-It reacts to the weather: If you search for a city where it's raining, the background image and the icons will automatically swap to a rainy theme. It does the same for snow, fog, clouds, and clear skies.
+ **[Check out the Live App]((https://weather-app-rib4.vercel.app/))**
 
-Mobile-first design: If you open this on a phone, the layout completely changes. The weather stats turn into clean, square widgets that stack perfectly on smaller screens.
+---
 
-What I used to build it
-React.js for the frontend framework.
+##  Features
 
-Custom CSS for the glassmorphism effects, flexbox, and mobile grid layouts.
+* **Real-Time Forecasting:** Search for any city worldwide to instantly fetch current temperatures, "feels like" values, daily highs and lows, humidity, atmospheric pressure, and sunrise/sunset times.
+* **Dynamic Weather Themes:** The app automatically adapts its background and icons to match real-world conditions (rain, snow, fog, clouds, or clear skies).
+* **Mobile-First Design:** Fully responsive layout that scales smoothly from large desktop monitors down to mobile phones, transforming stats into clean, stackable widgets.
 
-Material-UI (MUI) for the crisp, scalable icons.
+---
+ Tech Stack
 
-OpenWeatherMap API to fetch all the live weather data.
+* **Frontend:** React.js
+* **Styling:** Custom CSS (Glassmorphism effects, Flexbox, and responsive grid layouts)
+* **Icons:** Material-UI (MUI)
+* **API:** OpenWeatherMap API
 
-How to run this on your own computer
-If you want to download this code and play around with it locally, here is exactly how to set it up.
+---
 
-Before you start: Make sure you have Node.js installed on your machine.
+ Running Locally
 
-Step 1: Clone the code
+If you want to download this code and run it on your own computer, follow these steps:
+ Prerequisites
+Make sure you have [Node.js](https://nodejs.org/) installed on your machine.
 
-Open your computer's terminal and run this command to download the repository:
+### Step 1: Clone the repository
+Open your terminal and clone the project:
+```bash
+git clone [https://github.com/aslivashu/WeatherApp.git](https://github.com/aslivashu/WeatherApp.git)
 
-Bash
-git clone https://github.com/YOUR-USERNAME/YOUR-REPO-NAME.git
-Step 2: Open the folder
+```
 
-Navigate into the project folder you just downloaded:
+### Step 2: Navigate to the project folder
 
-Bash
-cd YOUR-REPO-NAME
-Step 3: Install the dependencies
+```bash
+cd WeatherApp
 
-This app needs a few extra packages to run (like the Material-UI icons). Tell your terminal to install them by running:
+```
 
-Bash
+### Step 3: Install dependencies
+
+Install the required packages (including Material-UI icons):
+
+```bash
 npm install
-Step 4: Start the app!
 
-Once everything is installed, you can start the local development server:
+```
 
-Bash
-npm run dev 
-(Note: If you used Create React App instead of Vite, you might need to run npm start instead).
+### Step 4: Start the development server
 
-Your terminal will give you a local link (usually http://localhost:5173 or http://localhost:3000). Just Ctrl+Click that link, and the app will open in your web browser!
+Run the local server:
 
-A quick note on the API Key
-To make it easy to test, I left a free-tier OpenWeatherMap API key in the SearchBox.jsx file. If you are going to fork this project or deploy it for your own use, please go to OpenWeatherMap, sign up for your own free API key, and swap it out so we don't share the same rate limits.
+```bash
+npm run dev
 
-Thanks for checking out my project!
+```
 
-— Sarthak
+*(Note: If you are using an older setup with Create React App, you may need to use `npm start` instead).*
+
+Your terminal will provide a local link (usually `http://localhost:5173`). Ctrl+Click the link to open the app in your browser!
+
+---
+
+##  A Note on the API Key
+
+To make testing easy out of the box, a free-tier OpenWeatherMap API key has been included in `SearchBox.jsx`. If you plan to fork this project or deploy your own version, please sign up for a free key at [OpenWeatherMap](https://openweathermap.org/) and replace the existing key to avoid hitting shared rate limits.
+
+---
+
+Built by **Sarthak**
+
+```
+
+```
