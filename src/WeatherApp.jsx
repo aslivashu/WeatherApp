@@ -21,7 +21,7 @@ export default function WeatherApp() {
 
         const weatherDesc = newInfo.weather ? newInfo.weather.toLowerCase() : '';
 
-        // Determine Samsung-style theme class
+        //theme
         if (newInfo.temp < 2 || weatherDesc.includes('snow')) {
             setTheme('snowy');
         } else if (newInfo.humidity > 85 || weatherDesc.includes('rain') || weatherDesc.includes('storm')) {
@@ -49,10 +49,10 @@ export default function WeatherApp() {
         );
     }
 
-    // MAIN WEATHER RESULTS PAGE (Using theme class instead of inline image)
+    // MAIN WEATHER RESULTS PAGE
     return (
         <div className={`weather-app ${theme}`}>
-            {/* Dynamic CSS Weather Effects (Rain, Snow, Sun Glow) */}
+            {/* Dynamic CSS Weather Effects */}
             <WeatherEffects weatherInfo={weatherInfo} />
 
             {/* Hamburger Button */}
