@@ -2,6 +2,7 @@ import AirIcon from '@mui/icons-material/Air';
 import WaterDropIcon from '@mui/icons-material/WaterDrop';
 import WbTwilightIcon from '@mui/icons-material/WbTwilight';
 import LightModeIcon from '@mui/icons-material/LightMode';
+import WindPowerIcon from '@mui/icons-material/WindPower';
 
 // Weather State Icons
 import CloudySnowingIcon from '@mui/icons-material/CloudySnowing';
@@ -14,7 +15,7 @@ import "./InfoBox.css";
 
 export default function InfoBox({ info }) {
     
-    // Dynamic Icon Logic
+    //Dynamic Icon Logic
     const getWeatherIcon = () => {
         const desc = info.weather ? info.weather.toLowerCase() : '';
         const { temp, humidity } = info;
@@ -34,6 +35,16 @@ export default function InfoBox({ info }) {
 
         return <ActiveIcon className="card-icon" />;
     };
+
+    // Helper to map US EPA AQI scale (0-500) to descriptive text
+        const getUSCategory = (aqi) => {
+            if (aqi <= 50) return "Good";
+            if (aqi <= 100) return "Moderate";
+            if (aqi <= 150) return "Sensitive Groups";
+            if (aqi <= 200) return "Unhealthy";
+            if (aqi <= 300) return "Very Unhealthy";
+        return "Hazardous";
+        };
 
     return (
         <div className="InfoBox">
@@ -72,6 +83,22 @@ export default function InfoBox({ info }) {
                     <WaterDropIcon className="card-icon"/>
                     <p className="card-title">Humidity</p>
                     <p className="card-value">{info.humidity}%</p>
+                </div>
+
+                {/*Card 6 */}
+                <div className="glass-card">
+                    <WindPowerIcon className="card-icon"/>
+                    <p className="card-title">Air Quality</p>
+                    <p className="card-value">
+                    {info.aqi !== undefined ? info.aqi : 'N/A'}</p>
+                    {info.aqi !== undefined && (
+                    <p className="card-subtext">
+                    {getUSCategory(info.aqi)} 
+                    <br />
+                    <span>PM2.5: {Math.round(info.pm25)} 
+                        | PM10: {Math.round(info.pm10)}</span>
+                    </p>
+                    )}
                 </div>
 
             </div>

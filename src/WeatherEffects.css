@@ -1,0 +1,90 @@
+.weather-effects-container {
+    position: fixed; /* Fixes it to the screen viewport so it never cuts off */
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none; /* Allows clicks to pass through to buttons/inputs */
+    overflow: hidden;
+    z-index: 1; /* Sits behind your content cards, above the background image */
+}
+
+/* --- Rain Styling & Animation --- */
+.rain-layer {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.raindrop {
+    position: absolute;
+    top: -50px;
+    width: 2px;
+    height: 35px;
+    background: linear-gradient(transparent, rgba(255, 255, 255, 0.95));
+    opacity: 0.85;
+    animation: fallRain linear infinite;
+}
+
+@keyframes fallRain {
+    0% {
+        transform: translateY(-50px);
+    }
+    100% {
+        transform: translateY(105vh);
+    }
+}
+
+/* --- Snow Styling & Animation --- */
+.snow-layer {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.snowflake {
+    position: absolute;
+    top: -20px;
+    color: rgba(255, 255, 255, 0.95);
+    font-size: 1rem;
+    user-select: none;
+    animation: fallSnow linear infinite;
+}
+
+@keyframes fallSnow {
+    0% {
+        transform: translateY(-20px) translateX(0px);
+    }
+    50% {
+        transform: translateY(50vh) translateX(15px);
+    }
+    100% {
+        transform: translateY(105vh) translateX(-15px);
+    }
+}
+
+/* --- Sunny Glow Animation --- */
+.sun-glow-effect {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 85% 15%, rgba(255, 230, 100, 0.35) 0%, transparent 60%);
+    animation: pulseSun 4s ease-in-out infinite alternate;
+}
+
+@keyframes pulseSun {
+    0% { opacity: 0.5; }
+    100% { opacity: 0.95; }
+}
+
+/* --- Haze / Fog Atmosphere --- */
+.haze-mist-effect {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(200, 210, 220, 0.2) 0%, rgba(150, 160, 170, 0.3) 100%);
+}

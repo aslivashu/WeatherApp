@@ -8,31 +8,64 @@
 }
 
 
+
 .initial-search-page {
     height: 100vh;
     width: 100vw;
-    background-color: #000000 !important; 
-    background-image: none !important; 
+    /* Rich shifting ambient gradient */
+    background: linear-gradient(135deg, #0f172a, #1e1b4b, #312e81, #1e293b);
+    background-size: 300% 300%;
+    animation: gradientShift 15s ease infinite;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
 }
 
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
 
 .weather-app {
-    height: 100vh; 
-    width: 100vw;
-    overflow: hidden;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
+    min-height: 100vh;
+    width: 100%;
     position: relative;
-    color: #ffffff;
     display: flex;
     flex-direction: column;
-    padding: 1.5rem 2rem 1rem 2rem;
+    justify-content: space-between;
+    padding-top: 6rem; 
+    padding-bottom: 2rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    gap: 1.5rem;
+   
+    box-sizing: border-box;
+    overflow-x: hidden;
+    transition: background 1s ease; 
+}
+
+
+.weather-app.sunny {
+    background: linear-gradient(135deg, #56ccf2, #2f80ed);
+}
+
+.weather-app.rainy {
+    background: linear-gradient(135deg, #373b44, #4286f4);
+}
+
+.weather-app.cloudy {
+    background: linear-gradient(135deg, #606c88, #3f4c6b);
+}
+
+.weather-app.snowy {
+    background: linear-gradient(135deg, #e6dada, #274046);
+}
+
+.weather-app.haze {
+    background: linear-gradient(135deg, #757f9a, #d7dde8);
 }
 
 
@@ -41,6 +74,8 @@
     top: 1.5rem;
     left: 1.5rem;
     background: rgba(0, 0, 0, 0.25);
+    -webkit-backdrop-filter: blur(25px) saturate(180%);
+    backdrop-filter: none;
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.25);
     color: #ffffff;
@@ -100,11 +135,12 @@
 .main-content {
     flex-grow: 1;
     width: 100%;
-    max-width: 1200px;
+    max-width: 1300px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
     position: relative;
+    z-index: 2;
 }
 
 
