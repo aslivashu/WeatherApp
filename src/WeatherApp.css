@@ -74,6 +74,9 @@
     padding: 5rem 2rem;
     transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 10px 0 30px rgba(0, 0, 0, 0.5);
+
+    transform: translateZ(0);
+    will-change: backdrop-filter;
 }
 
 .sidebar.open {
