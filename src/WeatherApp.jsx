@@ -40,7 +40,7 @@ export default function WeatherApp() {
                 setTheme('night-clear');
             }
         } else {
-            // Daytime themes (your previous functionality)
+            // Daytime themes
             if (newInfo.temp < 2 || weatherDesc.includes('snow')) {
                 setTheme('snowy');
             } else if (newInfo.humidity > 85 || weatherDesc.includes('rain') || weatherDesc.includes('storm')) {
