@@ -63,7 +63,8 @@ export default function SearchBox({ updateInfo }) {
                 sunset: sunset,
                 aqi: usAqi,
                 pm25: pm25,
-                pm10: pm10
+                pm10: pm10,
+                icon: jsonResponse.weather[0].icon
             };
         } catch (err) {
             setError(true);

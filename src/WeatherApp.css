@@ -69,6 +69,26 @@
 }
 
 
+.weather-app.night-clear {
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+}
+
+.weather-app.night-cloudy {
+    background: linear-gradient(135deg, #232526, #414345);
+}
+
+.weather-app.night-rainy {
+    background: linear-gradient(135deg, #141e30, #243b55);
+}
+
+.weather-app.night-snowy {
+    background: linear-gradient(135deg, #1f4068, #162447);
+}
+
+.weather-app.night-haze {
+    background: linear-gradient(135deg, #2c3e50, #34495e);
+}
+
 .hamburger-btn {
     position: absolute;
     top: 1.5rem;
@@ -89,6 +109,7 @@
     z-index: 100;
     transition: background 0.2s;
 }
+
 
 .hamburger-btn:hover {
     background: rgba(255, 255, 255, 0.2);

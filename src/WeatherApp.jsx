@@ -12,7 +12,7 @@ import "./WeatherApp.css";
 
 export default function WeatherApp() { 
     const [menuOpen, setMenuOpen] = useState(false); 
-    const [theme, setTheme] = useState('sunny'); // Default theme
+    const [theme, setTheme] = useState('sunny'); 
     const [weatherInfo, setWeatherInfo] = useState(null);
 
     const updateInfo = (newInfo) => {
@@ -20,18 +20,38 @@ export default function WeatherApp() {
         setMenuOpen(false); 
 
         const weatherDesc = newInfo.weather ? newInfo.weather.toLowerCase() : '';
+        
+        // Robust night detection: checks API icon ending in 'n' OR local time (past 7 PM or before 6 AM)
+        const currentHour = new Date().getHours();
+        const isIconNight = newInfo.icon ? newInfo.icon.endsWith('n') : false;
+        const isNightTime = isIconNight || currentHour < 6 || currentHour >= 19;
 
-        //theme
-        if (newInfo.temp < 2 || weatherDesc.includes('snow')) {
-            setTheme('snowy');
-        } else if (newInfo.humidity > 85 || weatherDesc.includes('rain') || weatherDesc.includes('storm')) {
-            setTheme('rainy');
-        } else if (newInfo.temp > 20 || weatherDesc.includes('sun') || weatherDesc.includes('clear')) {
-            setTheme('sunny');
-        } else if (weatherDesc.includes('cloud') || weatherDesc.includes('overcast')) {
-            setTheme('cloudy');
+        if (isNightTime) {
+            // Night themes
+            if (newInfo.temp < 2 || weatherDesc.includes('snow')) {
+                setTheme('night-snowy');
+            } else if (newInfo.humidity > 85 || weatherDesc.includes('rain') || weatherDesc.includes('storm')) {
+                setTheme('night-rainy');
+            } else if (weatherDesc.includes('haze') || weatherDesc.includes('fog') || weatherDesc.includes('mist')) {
+                setTheme('night-haze');
+            } else if (weatherDesc.includes('cloud') || weatherDesc.includes('overcast')) {
+                setTheme('night-cloudy');
+            } else {
+                setTheme('night-clear');
+            }
         } else {
-            setTheme('haze');
+            // Daytime themes (your previous functionality)
+            if (newInfo.temp < 2 || weatherDesc.includes('snow')) {
+                setTheme('snowy');
+            } else if (newInfo.humidity > 85 || weatherDesc.includes('rain') || weatherDesc.includes('storm')) {
+                setTheme('rainy');
+            } else if (weatherDesc.includes('haze') || weatherDesc.includes('fog') || weatherDesc.includes('mist')) {
+                setTheme('haze');
+            } else if (weatherDesc.includes('cloud') || weatherDesc.includes('overcast')) {
+                setTheme('cloudy');
+            } else {
+                setTheme('sunny');
+            }
         }
     };
 
