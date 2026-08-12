@@ -13,7 +13,7 @@ export default function WeatherEffects({ weatherInfo, theme }) {
     const isSunny = !isNight && (temp > 20 || weatherDesc.includes('sun') || weatherDesc.includes('clear'));
     const isClearNight = isNight && (weatherDesc.includes('clear') || (!weatherDesc.includes('cloud') && !weatherDesc.includes('rain') && !weatherDesc.includes('snow') && !weatherDesc.includes('haze')));
     
-    // Broadened to catch 'clouds', 'cloudy', 'overcast', etc.
+    
     const isCloudy = weatherDesc.includes('cloud') || weatherDesc.includes('overcast');
     const isHaze = weatherDesc.includes('haze') || weatherDesc.includes('fog') || weatherDesc.includes('mist');
 
@@ -75,7 +75,7 @@ export default function WeatherEffects({ weatherInfo, theme }) {
                 </div>
             )}
 
-            {/* Floating Haze / Mist Wisps */}
+            {/* Floating Haze */}
             {isHaze && (
                 <div className="haze-particle-layer">
                     {[...Array(3)].map((_, i) => (

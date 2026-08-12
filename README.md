@@ -1,52 +1,66 @@
 
 # WeatherWebApp
 
-A clean, highly visual, and responsive weather application built with React. It features a modern **glassmorphism** design combined with Samsung One UI-style dynamic gradients, automated night-mode detection, live regional local time tracking, and smooth responsive layouts that adapt live to global forecasts.
+A high-performance, responsive weather application built with React, featuring a modern glassmorphism design and Samsung One UI-inspired dynamic gradients. This application includes automated global day and night detection, live regional local time tracking, and smooth CSS-driven animations that adapt seamlessly to worldwide forecasts.
 
 **[Check out the Live App](https://weather-app-rib4.vercel.app/)**
 
 ---
 
-## Features
+## Key Features
 
-* **Real-Time Forecasting & Local Time:** Search for any city worldwide to instantly fetch current temperatures, "feels like" values, daily highs and lows, humidity, atmospheric pressure, sunrise/sunset times, and the **precise local time** of the searched region.
-* **Smart Day & Night Theme Engine:** Automatically detects global day/night cycles using the target city's exact timezone offset and API icon codes to seamlessly switch between bright daytime palettes and comfortable, eye-friendly dark gradients.
-* **Specialized Weather Gradients & Moods:** 
-  * *Daytime Themes:* Vibrant palettes explicitly mapped for sunny, clear sky, clouds, haze, rain, snow, and storms.
-  * *Nighttime Themes:* Tailored dark backgrounds optimized for evening conditions (`night-clear`, `night-cloudy`, `night-rainy`, `night-snowy`, `night-haze`, and `night-storm`).
-* **US EPA Air Quality Index & Pollutants:** Calculates standard US AQI metrics and displays a detailed breakdown of **PM2.5** and **PM10** microgram measurements.
-* **Animated CSS Weather Effects:** Features smooth 60 FPS CSS animations for falling rain, drifting snowflakes, a glowing sun, an enhanced moonlit night glow, drifting cloud layers, and floating haze wisps.
-* **Responsive Layout & Custom Card Shapes:** 
-  * *Desktop:* Balanced grid layout with comfortable top-padding alignment.
-  * *Mobile:* Tailored mobile layout featuring full-width rectangle cards for Weather and Air Quality, flanked by clean side-by-side metrics.
-* **Vercel-Optimized Performance:** Built using robust translucent styling and deep layered shadows to ensure cross-browser stability and zero rendering bugs on production servers.
+* **Global Forecasting & Regional Local Time:** Search any city worldwide to retrieve current meteorological data, including temperature, feels-like metrics, daily highs and lows, relative humidity, atmospheric pressure, sunrise and sunset schedules, and the precise local time for that specific region.
+* **Smart Day & Night Theme Engine:** Bypasses local device clock constraints by utilizing the target city's exact timezone offset and API condition codes to automatically switch between bright daytime aesthetics and eye-friendly dark mode gradients.
+* **Granular Weather Condition Mapping:** 
+  * *Daytime Themes:* Vibrant palettes explicitly configured for sunny, clear skies, clouds, haze, rain, snow, and thunderstorms.
+  * *Nighttime Themes:* Specialized dark palettes (`night-clear`, `night-cloudy`, `night-rainy`, `night-snowy`, `night-haze`, and `night-storm`) designed for evening visibility.
+* **Air Quality Index (US EPA):** Computes standard United States AQI metrics based on PM2.5 concentrations, delivering a detailed breakdown of both PM2.5 and PM10 microgram measurements.
+* **Custom Animated Weather Effects:** Utilizes optimized 60 FPS CSS keyframe animations for falling rain particles, drifting snowflakes, a sun glow, an enhanced moonlit night glow, moving cloud layers, and rolling mist wisps.
+* **Responsive Layout Design:** Adapts smoothly across various viewports, featuring an optimized grid configuration for desktop environments and dedicated full-width cards for mobile layouts.
+
+---
+
+## Architecture & Core Logic
+
+### 1. Regional Local Time & Timezone Calculation (`SearchBox.jsx`)
+To resolve discrepancies caused by differing geographical time zones, the application processes time data directly from the OpenWeatherMap payload:
+* Retrieves the raw `timezone` offset value in seconds from UTC.
+* Computes the current UTC timestamp in milliseconds and applies the city-specific offset.
+* Formulates a localized 12-hour time string and tracks the exact `cityHour` integer to govern global day/night state transitions.
+
+### 2. Theme & Day/Night Engine (`WeatherApp.jsx`)
+* **Time Validation:** Evaluates whether the API weather condition icon ends with `'n'` or if the target city's local hour falls outside daytime boundaries (before 6:00 AM or at/after 7:00 PM).
+* **State Mapping:** Evaluates active meteorological conditions (such as precipitation, atmospheric obstruction, cloud cover, and solar clarity) to assign corresponding Samsung One UI-inspired CSS gradient themes.
+
+### 3. Visual Effects Pipeline (`WeatherEffects.jsx` & CSS)
+* **Particle Generation:** Leverages JavaScript array mapping to dynamically instantiate randomized particle structures for rain and snow layers.
+* **Atmospheric Styling:** Implements radial gradients for solar illumination, a pulsing lunar radiance effect (`.moon-glow-effect`) for clear nocturnal skies, blurred drifting cloud containers (`.cloud-layer`), and shifting atmospheric haze wisps (`.haze-particle-layer`).
 
 ---
 
 ## Tech Stack
 
 * **Frontend:** React.js
-* **Styling:** Custom CSS (Glassmorphism, Flexbox, CSS Gradients, and Keyframe Animations)
+* **Styling:** Custom CSS (Glassmorphism, Flexbox, Gradients, Keyframe Animations)
 * **Icons:** Material-UI (MUI)
 * **APIs:** OpenWeatherMap Weather & Air Pollution APIs
 
 ---
 
-## Running Locally
+## Local Development Guide
 
-If you want to download this code and run it on your own computer, follow these steps:
+To set up and run this project locally, execute the following instructions in your terminal:
 
 ### Prerequisites
-Make sure you have [Node.js](https://nodejs.org/) installed on your machine.
+Verify that [Node.js](https://nodejs.org/) is installed on your workstation.
 
 ### Step 1: Clone the repository
-Open your terminal and clone the project:
 ```bash
 git clone [https://github.com/aslivashu/WeatherApp.git](https://github.com/aslivashu/WeatherApp.git)
 
 ```
 
-### Step 2: Navigate to the project folder
+### Step 2: Navigate to the project directory
 
 ```bash
 cd WeatherApp
@@ -55,8 +69,6 @@ cd WeatherApp
 
 ### Step 3: Install dependencies
 
-Install the required packages (including Material-UI icons):
-
 ```bash
 npm install
 
@@ -64,25 +76,19 @@ npm install
 
 ### Step 4: Start the development server
 
-Run the local server:
-
 ```bash
 npm run dev
 
 ```
 
-Your terminal will provide a local link (usually `http://localhost:5173`). Click the link to open the app in your browser!
+Open the provided local development link (typically `http://localhost:5173`) in your web browser.
 
 ---
 
-## A Note on the API Key
+## API Configuration Notice
 
-To make testing easy out of the box, a free-tier OpenWeatherMap API key has been included in `SearchBox.jsx`. If you plan to fork this project or deploy your own version, please sign up for a free key at [OpenWeatherMap](https://openweathermap.org/) and replace the existing key to avoid hitting shared rate limits.
+To facilitate immediate out-of-the-box testing, a default free-tier OpenWeatherMap API key has been included within `SearchBox.jsx`. If you plan to fork this repository or deploy a production instance, please register for your own complimentary API key at [OpenWeatherMap](https://openweathermap.org/) and replace the existing key to prevent rate-limiting restrictions.
 
 ---
 
-Built by **Sarthak**
-
-```
-
-```
+Developed by **Sarthak**

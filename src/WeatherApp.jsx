@@ -78,7 +78,7 @@ export default function WeatherApp() {
     // MAIN WEATHER RESULTS PAGE
     return (
         <div className={`weather-app ${theme}`}>
-            {/* Dynamic CSS Weather Effects */}
+            {/*  Weather Effects */}
             <WeatherEffects weatherInfo={weatherInfo} theme={theme} />
 
             {/* Hamburger Button */}
@@ -116,7 +116,7 @@ export default function WeatherApp() {
                 {/* Cards */}
                 <InfoBox info={weatherInfo}/>
 
-                {/* Local Region*/}
+                {/* Local Region Time*/}
                 <div className="region-time-footer-text" style={{ textAlign: 'center', marginTop: '1.5rem', color: '#ffffff', opacity: '0.85', fontWeight: '500' }}>
                     <span> {weatherInfo.localTime}</span>
                 </div>

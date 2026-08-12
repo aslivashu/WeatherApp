@@ -97,7 +97,7 @@
     100% { opacity: 1; }
 }
 
-/* --- Haze / Fog Atmosphere --- */
+/* --- Haze/Mist Atmosphere --- */
 .haze-mist-effect {
     position: absolute;
     top: 0;
@@ -135,7 +135,7 @@
     }
 }
 
-/* --- Haze / Mist Floating Fog Animation --- */
+/* --- Haze/Mist Floating Fog Animation --- */
 .haze-particle-layer {
     position: absolute;
     top: 0;

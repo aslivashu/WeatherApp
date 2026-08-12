@@ -50,7 +50,7 @@ export default function SearchBox({ updateInfo }) {
             let sunrise = new Date(jsonResponse.sys.sunrise * 1000).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
             let sunset = new Date(jsonResponse.sys.sunset * 1000).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
 
-            // --- Calculate exact local time & hour of the searched city ---
+            // local time & hour of the searched city
         const timezoneOffsetSeconds = jsonResponse.timezone; // e.g., 19800 for India (+5:30)
         const utcMillis = new Date().getTime() + (new Date().getTimezoneOffset() * 60000);
         const cityTimeMillis = utcMillis + (timezoneOffsetSeconds * 1000);
