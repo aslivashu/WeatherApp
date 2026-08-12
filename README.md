@@ -11,11 +11,11 @@ A clean, highly visual, and responsive weather application built with React. It 
 
 * **Real-Time Forecasting & Local Time:** Search for any city worldwide to instantly fetch current temperatures, "feels like" values, daily highs and lows, humidity, atmospheric pressure, sunrise/sunset times, and the **precise local time** of the searched region.
 * **Smart Day & Night Theme Engine:** Automatically detects global day/night cycles using the target city's exact timezone offset and API icon codes to seamlessly switch between bright daytime palettes and comfortable, eye-friendly dark gradients.
-* **Comprehensive Weather Conditions (Day & Night):** 
-  * *Daytime Gradients:* Explicitly checks for sunny, clear sky, clouds, haze, rain, and snow with bright, vibrant backgrounds.
-  * *Nighttime Gradients:* Tailored dark backgrounds optimized for evening conditions (`night-clear`, `night-cloudy`, `night-rainy`, `night-snowy`, and `night-haze`).
+* **Specialized Weather Gradients & Moods:** 
+  * *Daytime Themes:* Vibrant palettes explicitly mapped for sunny, clear sky, clouds, haze, rain, snow, and storms.
+  * *Nighttime Themes:* Tailored dark backgrounds optimized for evening conditions (`night-clear`, `night-cloudy`, `night-rainy`, `night-snowy`, `night-haze`, and `night-storm`).
 * **US EPA Air Quality Index & Pollutants:** Calculates standard US AQI metrics and displays a detailed breakdown of **PM2.5** and **PM10** microgram measurements.
-* **Lightweight CSS Weather Effects:** Features smooth 60 FPS CSS animations for falling rain, drifting snowflakes, sun glows, and atmospheric elements.
+* **Animated CSS Weather Effects:** Features smooth 60 FPS CSS animations for falling rain, drifting snowflakes, a glowing sun, an enhanced moonlit night glow, drifting cloud layers, and floating haze wisps.
 * **Responsive Layout & Custom Card Shapes:** 
   * *Desktop:* Balanced grid layout with comfortable top-padding alignment.
   * *Mobile:* Tailored mobile layout featuring full-width rectangle cards for Weather and Air Quality, flanked by clean side-by-side metrics.

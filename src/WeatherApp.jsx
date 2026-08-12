@@ -27,30 +27,32 @@ export default function WeatherApp() {
         const isNightTime = isIconNight || currentHour < 6 || currentHour >= 19;
 
         if (isNightTime) {
-            // Night themes
+            // --- NIGHT THEMES ---
             if (newInfo.temp < 2 || weatherDesc.includes('snow')) {
                 setTheme('night-snowy');
-            } else if (newInfo.humidity > 85 || weatherDesc.includes('rain') || weatherDesc.includes('storm') || weatherDesc.includes('drizzle')) {
+            } else if (weatherDesc.includes('storm') || weatherDesc.includes('thunder')) {
+                setTheme('night-storm'); // Dedicated Night Storm Theme
+            } else if (newInfo.humidity > 85 || weatherDesc.includes('rain') || weatherDesc.includes('drizzle')) {
                 setTheme('night-rainy');
             } else if (weatherDesc.includes('haze') || weatherDesc.includes('fog') || weatherDesc.includes('mist')) {
-                setTheme('night-haze');
+                setTheme('night-haze'); // Dedicated Night Haze Theme
             } else if (weatherDesc.includes('cloud') || weatherDesc.includes('overcast')) {
-                setTheme('night-cloudy');
-            } else if (weatherDesc.includes('clear')) {
-                setTheme('night-clear'); 
+                setTheme('night-cloudy'); // Dedicated Night Cloudy Theme
             } else {
                 setTheme('night-clear');
             }
         } else {
-            // Daytime themes
+            // --- DAYTIME THEMES ---
             if (newInfo.temp < 2 || weatherDesc.includes('snow')) {
                 setTheme('snowy');
-            } else if (newInfo.humidity > 85 || weatherDesc.includes('rain') || weatherDesc.includes('storm') || weatherDesc.includes('drizzle')) {
+            } else if (weatherDesc.includes('storm') || weatherDesc.includes('thunder')) {
+                setTheme('storm'); // Dedicated Day Storm Theme
+            } else if (newInfo.humidity > 85 || weatherDesc.includes('rain') || weatherDesc.includes('drizzle')) {
                 setTheme('rainy');
             } else if (weatherDesc.includes('haze') || weatherDesc.includes('fog') || weatherDesc.includes('mist')) {
-                setTheme('haze');
+                setTheme('haze'); // Dedicated Day Haze Theme (Dusty/Muted tone)
             } else if (weatherDesc.includes('cloud') || weatherDesc.includes('overcast')) {
-                setTheme('cloudy');
+                setTheme('cloudy'); // Dedicated Day Cloudy Theme (Soft silvery-blue/gray)
             } else if (weatherDesc.includes('clear') || weatherDesc.includes('sun')) {
                 setTheme('sunny'); 
             } else {
@@ -77,7 +79,7 @@ export default function WeatherApp() {
     return (
         <div className={`weather-app ${theme}`}>
             {/* Dynamic CSS Weather Effects */}
-            <WeatherEffects weatherInfo={weatherInfo} />
+            <WeatherEffects weatherInfo={weatherInfo} theme={theme} />
 
             {/* Hamburger Button */}
             <button className="hamburger-btn" onClick={() => setMenuOpen(true)}>
@@ -116,7 +118,7 @@ export default function WeatherApp() {
 
                 {/* Local Region*/}
                 <div className="region-time-footer-text" style={{ textAlign: 'center', marginTop: '1.5rem', color: '#ffffff', opacity: '0.85', fontWeight: '500' }}>
-                    <span>Time: {weatherInfo.localTime}</span>
+                    <span> {weatherInfo.localTime}</span>
                 </div>
 
                 {/* Footer */}

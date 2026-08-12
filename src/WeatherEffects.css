@@ -79,6 +79,24 @@
     100% { opacity: 0.95; }
 }
 
+/* --- Moon Glow for Clear Nights --- */
+
+.moon-glow-effect {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 85% 15%, rgba(220, 240, 255, 0.35) 0%, transparent 70%);
+    pointer-events: none;
+    animation: pulseMoon 5s ease-in-out infinite alternate;
+}
+
+@keyframes pulseMoon {
+    0% { opacity: 0.7; }
+    100% { opacity: 1; }
+}
+
 /* --- Haze / Fog Atmosphere --- */
 .haze-mist-effect {
     position: absolute;
@@ -88,3 +106,61 @@
     height: 100%;
     background: linear-gradient(180deg, rgba(200, 210, 220, 0.2) 0%, rgba(150, 160, 170, 0.3) 100%);
 }
+
+/* --- Drifting Cloud Layer --- */
+.cloud-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60%;
+    pointer-events: none;
+    opacity: 0.45;
+}
+
+.cloud-particle {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    filter: blur(25px);
+    animation: driftCloud linear infinite;
+}
+
+@keyframes driftCloud {
+    0% {
+        transform: translateX(-150px);
+    }
+    100% {
+        transform: translateX(105vw);
+    }
+}
+
+/* --- Haze / Mist Floating Fog Animation --- */
+.haze-particle-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.haze-wisp {
+    position: absolute;
+    background: linear-gradient(90deg, transparent, rgba(210, 220, 230, 0.25), transparent);
+    height: 120px;
+    width: 100%;
+    animation: driftHaze ease-in-out infinite alternate;
+}
+
+@keyframes driftHaze {
+    0% {
+        transform: translateX(-30px);
+        opacity: 0.3;
+    }
+    100% {
+        transform: translateX(30px);
+        opacity: 0.7;
+    }
+}
+

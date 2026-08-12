@@ -275,3 +275,33 @@ footer {
         padding-bottom: 1.5rem;
     }
 }
+
+/* --- Clouds Theme (Day): Soft Silver-Blue --- */
+.weather-app.cloudy {
+    background: linear-gradient(135deg, #617385, #414d5b);
+}
+
+/* --- Haze / Mist Theme (Day): Dusty, Muted Warm-Gray --- */
+.weather-app.haze {
+    background: linear-gradient(135deg, #7c858c, #525a60);
+}
+
+/* --- Storm Theme (Day): Deep Moody Purple-Slate --- */
+.weather-app.storm {
+    background: linear-gradient(135deg, #323b4c, #1f242d);
+}
+
+/* --- Cloudy Theme (Night): Deep Charcoal-Blue --- */
+.weather-app.night-cloudy {
+    background: linear-gradient(135deg, #253342, #131921);
+}
+
+/* --- Haze Theme (Night): Heavy Atmospheric Charcoal --- */
+.weather-app.night-haze {
+    background: linear-gradient(135deg, #2b333a, #151a1e);
+}
+
+/* --- Storm Theme (Night): Dark Electric Dark-Indigo --- */
+.weather-app.night-storm {
+    background: linear-gradient(135deg, #1b1e2b, #0d0f14);
+}
