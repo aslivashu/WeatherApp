@@ -21,8 +21,8 @@ export default function WeatherApp() {
 
         const weatherDesc = newInfo.weather ? newInfo.weather.toLowerCase() : '';
         
-        // Robust night detection: checks API icon ending in 'n' OR local time (past 7 PM or before 6 AM)
-        const currentHour = new Date().getHours();
+        // night detection (7 PM ~ 6 AM)
+        const currentHour = newInfo.cityHour !== undefined ? newInfo.cityHour : new Date().getHours();
         const isIconNight = newInfo.icon ? newInfo.icon.endsWith('n') : false;
         const isNightTime = isIconNight || currentHour < 6 || currentHour >= 19;
 
@@ -30,12 +30,14 @@ export default function WeatherApp() {
             // Night themes
             if (newInfo.temp < 2 || weatherDesc.includes('snow')) {
                 setTheme('night-snowy');
-            } else if (newInfo.humidity > 85 || weatherDesc.includes('rain') || weatherDesc.includes('storm')) {
+            } else if (newInfo.humidity > 85 || weatherDesc.includes('rain') || weatherDesc.includes('storm') || weatherDesc.includes('drizzle')) {
                 setTheme('night-rainy');
             } else if (weatherDesc.includes('haze') || weatherDesc.includes('fog') || weatherDesc.includes('mist')) {
                 setTheme('night-haze');
             } else if (weatherDesc.includes('cloud') || weatherDesc.includes('overcast')) {
                 setTheme('night-cloudy');
+            } else if (weatherDesc.includes('clear')) {
+                setTheme('night-clear'); 
             } else {
                 setTheme('night-clear');
             }
@@ -43,12 +45,14 @@ export default function WeatherApp() {
             // Daytime themes
             if (newInfo.temp < 2 || weatherDesc.includes('snow')) {
                 setTheme('snowy');
-            } else if (newInfo.humidity > 85 || weatherDesc.includes('rain') || weatherDesc.includes('storm')) {
+            } else if (newInfo.humidity > 85 || weatherDesc.includes('rain') || weatherDesc.includes('storm') || weatherDesc.includes('drizzle')) {
                 setTheme('rainy');
             } else if (weatherDesc.includes('haze') || weatherDesc.includes('fog') || weatherDesc.includes('mist')) {
                 setTheme('haze');
             } else if (weatherDesc.includes('cloud') || weatherDesc.includes('overcast')) {
                 setTheme('cloudy');
+            } else if (weatherDesc.includes('clear') || weatherDesc.includes('sun')) {
+                setTheme('sunny'); 
             } else {
                 setTheme('sunny');
             }
@@ -109,6 +113,11 @@ export default function WeatherApp() {
 
                 {/* Cards */}
                 <InfoBox info={weatherInfo}/>
+
+                {/* Local Region*/}
+                <div className="region-time-footer-text" style={{ textAlign: 'center', marginTop: '1.5rem', color: '#ffffff', opacity: '0.85', fontWeight: '500' }}>
+                    <span>Time: {weatherInfo.localTime}</span>
+                </div>
 
                 {/* Footer */}
                 <footer>Weather App by Sarthak</footer>

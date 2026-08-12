@@ -1,7 +1,7 @@
 
 # WeatherWebApp
 
-A clean, highly visual, and responsive weather application built with React. It features a modern **glassmorphism** design combined with Samsung One UI-style dynamic gradients, automated night-mode detection, and smooth responsive layouts that adapt live to global forecasts.
+A clean, highly visual, and responsive weather application built with React. It features a modern **glassmorphism** design combined with Samsung One UI-style dynamic gradients, automated night-mode detection, live regional local time tracking, and smooth responsive layouts that adapt live to global forecasts.
 
 **[Check out the Live App](https://weather-app-rib4.vercel.app/)**
 
@@ -9,17 +9,15 @@ A clean, highly visual, and responsive weather application built with React. It 
 
 ## Features
 
-* **Real-Time Forecasting:** Search for any city worldwide to instantly fetch current temperatures, "feels like" values, daily highs and lows, humidity, atmospheric pressure, and sunrise/sunset times.
-* **Smart Day & Night Theme Engine:** Automatically detects night-time conditions (via OpenWeatherMap API icon codes and local device time) to switch from bright daytime palettes to comfortable, eye-friendly dark gradients.
-* **Specialized Night Gradients:** Features distinct, high-end dark backgrounds optimized for various evening conditions:
-  * *Clear Night:* Deep navy gradients (`night-clear`)
-  * *Cloudy/Overcast Night:* Dark charcoal palettes (`night-cloudy`)
-  * *Rainy Night:* Deep slate storm tones (`night-rainy`)
-  * *Snowy & Hazy Nights:* Tailored winter and atmospheric night tones (`night-snowy`, `night-haze`)
+* **Real-Time Forecasting & Local Time:** Search for any city worldwide to instantly fetch current temperatures, "feels like" values, daily highs and lows, humidity, atmospheric pressure, sunrise/sunset times, and the **precise local time** of the searched region.
+* **Smart Day & Night Theme Engine:** Automatically detects global day/night cycles using the target city's exact timezone offset and API icon codes to seamlessly switch between bright daytime palettes and comfortable, eye-friendly dark gradients.
+* **Comprehensive Weather Conditions (Day & Night):** 
+  * *Daytime Gradients:* Explicitly checks for sunny, clear sky, clouds, haze, rain, and snow with bright, vibrant backgrounds.
+  * *Nighttime Gradients:* Tailored dark backgrounds optimized for evening conditions (`night-clear`, `night-cloudy`, `night-rainy`, `night-snowy`, and `night-haze`).
 * **US EPA Air Quality Index & Pollutants:** Calculates standard US AQI metrics and displays a detailed breakdown of **PM2.5** and **PM10** microgram measurements.
 * **Lightweight CSS Weather Effects:** Features smooth 60 FPS CSS animations for falling rain, drifting snowflakes, sun glows, and atmospheric elements.
 * **Responsive Layout & Custom Card Shapes:** 
-  * *Desktop:* Balanced 3x2 grid layout with comfortable top-padding alignment.
+  * *Desktop:* Balanced grid layout with comfortable top-padding alignment.
   * *Mobile:* Tailored mobile layout featuring full-width rectangle cards for Weather and Air Quality, flanked by clean side-by-side metrics.
 * **Vercel-Optimized Performance:** Built using robust translucent styling and deep layered shadows to ensure cross-browser stability and zero rendering bugs on production servers.
 
