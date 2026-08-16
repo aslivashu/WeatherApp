@@ -28,7 +28,17 @@ export default function WeatherEffects({ weatherInfo, theme }) {
     const isLightning = isHeavyRain || isStorm || isHeatLightning || weatherDesc.includes('squall') || isMonsoonLightning;
 
     // STANDARD CONDITIONS
-    let isRaining = humidityValue > 85 || weatherDesc.includes('rain') || weatherDesc.includes('drizzle') || isLightning || theme.includes('sleet');
+    // Check if sky is explicitly clear or sunny to prevent false rain from high humidity
+    const isClearSky = weatherDesc.includes('clear') || weatherDesc.includes('sunny');
+
+    let isRaining = !isClearSky && (
+        humidityValue > 85 || 
+        weatherDesc.includes('rain') || 
+        weatherDesc.includes('drizzle') || 
+        isLightning || 
+        theme.includes('sleet')
+    );
+
     const isSnowing = temp < 2 || weatherDesc.includes('snow') || theme.includes('sleet');
     if (temp < -5) {
         isRaining = false;
@@ -36,7 +46,7 @@ export default function WeatherEffects({ weatherInfo, theme }) {
     const isCloudy = weatherDesc.includes('cloud') || isOvercast || isRaining || isStorm || isHeavyRain;
     const isHaze = weatherDesc.includes('haze') || weatherDesc.includes('fog') || weatherDesc.includes('mist');
 
-    //  SUN/MOON VISIBILITY 
+    //   SUN/MOON VISIBILITY 
     const hideSunMoon = isHeavyRain || isOvercast || isSnowing;
     
     // Check OpenWeatherMap's day/night icon
