@@ -22,7 +22,7 @@ export default function WeatherApp() {
       const weatherDesc = newInfo.weather ? newInfo.weather.toLowerCase() : '';
       const humidityValue = parseInt(newInfo.humidity) || 0;
 
-      const isRaining = humidityValue > 85 || weatherDesc.includes('rain') || weatherDesc.includes('drizzle');
+      let isRaining = humidityValue > 85 || weatherDesc.includes('rain') || weatherDesc.includes('drizzle');
       const isSnowing = newInfo.temp < 2 || weatherDesc.includes('snow');
       if (newInfo.temp < -5) {
             isRaining = false; 
