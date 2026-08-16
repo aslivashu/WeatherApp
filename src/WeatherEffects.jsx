@@ -47,8 +47,28 @@ export default function WeatherEffects({ weatherInfo, theme }) {
     return (
         <div className="weather-effects-container">
             
-            {/* Lightning Flash Layer */}
-            {isLightning && <div className="lightning-flash-effect" />}
+            {/* REALISTIC LIGHTNING LAYER */}
+            {isLightning && (
+                <div className="lightning-container">
+                    {/* Glowing clouds behind the bolt */}
+                    <div className="lightning-ambient" />
+                    
+                    {/* Bolt 1 (Left Side) */}
+                    <svg className="lightning-bolt bolt-1" viewBox="0 0 100 100" preserveAspectRatio="none">
+                        {/* vectorEffect="non-scaling-stroke" keeps the bolt thin even when stretched */}
+                        <polyline points="60,0 40,30 55,35 25,70 35,75 10,100" fill="none" stroke="white" strokeWidth="2" vectorEffect="non-scaling-stroke" />
+                        <polyline points="40,30 20,40" fill="none" stroke="white" strokeWidth="1" vectorEffect="non-scaling-stroke" />
+                        <polyline points="25,70 15,65" fill="none" stroke="white" strokeWidth="1" vectorEffect="non-scaling-stroke" />
+                    </svg>
+
+                    {/* Bolt 2 (Right Side) */}
+                    <svg className="lightning-bolt bolt-2" viewBox="0 0 100 100" preserveAspectRatio="none">
+                        <polyline points="40,0 60,25 45,30 75,65 65,70 90,100" fill="none" stroke="white" strokeWidth="2" vectorEffect="non-scaling-stroke" />
+                        <polyline points="60,25 80,30" fill="none" stroke="white" strokeWidth="1" vectorEffect="non-scaling-stroke" />
+                        <polyline points="75,65 90,60" fill="none" stroke="white" strokeWidth="1" vectorEffect="non-scaling-stroke" />
+                    </svg>
+                </div>
+            )}
 
             {/* Rain Particles */}
             {isRaining && (

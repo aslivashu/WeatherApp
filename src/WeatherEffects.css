@@ -164,27 +164,79 @@
     }
 }
 
-/* --- Lightning Flash Animation --- */
-.lightning-flash-effect {
+
+.lightning-container {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(255, 255, 255, 0.85);
-    opacity: 0;
     pointer-events: none;
-    z-index: 0; 
-    
-    /* 10 seconds total: 9 seconds of dark, 1 second of rapid flashing */
-    animation: lightningStrike 10s infinite; 
+    z-index: 1; 
+    overflow: hidden;
 }
 
-@keyframes lightningStrike {
-    0%   { opacity: 0; }
-    1%   { opacity: 0.8; } /* First flash */
-    2%   { opacity: 0; }   /* Quick dark gap */
-    3%   { opacity: 0.6; } /* Second slightly dimmer flash */
-    4%   { opacity: 0; }
-    100% { opacity: 0; }
+
+.lightning-ambient {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    opacity: 0;
+    
+    animation: lightningAmbientPhysics 15s infinite;
+}
+
+
+.lightning-bolt {
+    position: absolute;
+    top: 0;
+    opacity: 0;
+    filter: drop-shadow(0 0 5px rgba(200, 230, 255, 0.9)) drop-shadow(0 0 15px rgba(255, 255, 255, 0.8));
+}
+
+
+.bolt-1 {
+    left: 15%;
+    width: 25vw;
+    height: 75vh;
+    animation: boltStrike1 12s infinite;
+}
+
+
+.bolt-2 {
+    right: 15%;
+    width: 20vw;
+    height: 65vh;
+    transform: scaleX(-1); 
+    animation: boltStrike2 12s infinite;
+}
+
+
+@keyframes lightningAmbientPhysics {
+    0%, 9%, 13%, 49%, 53%, 100% { opacity: 0; }
+    
+   
+    10% { opacity: 0.8; background: radial-gradient(ellipse at 25% 0%, rgba(200, 220, 255, 0.5) 0%, transparent 60%); }
+    11% { opacity: 0.1; }
+    12% { opacity: 0.6; }
+    
+
+    50% { opacity: 0.8; background: radial-gradient(ellipse at 75% 0%, rgba(200, 220, 255, 0.5) 0%, transparent 60%); }
+    51% { opacity: 0.1; }
+    52% { opacity: 0.6; }
+}
+
+
+@keyframes boltStrike1 {
+    0%, 9%, 13%, 100% { opacity: 0; }
+    10% { opacity: 1; }
+    11% { opacity: 0; }
+    12% { opacity: 0.7; }
+}
+
+@keyframes boltStrike2 {
+    0%, 49%, 53%, 100% { opacity: 0; }
+    50% { opacity: 1; }
+    51% { opacity: 0; }
+    52% { opacity: 0.7; }
 }
