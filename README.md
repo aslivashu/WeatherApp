@@ -1,9 +1,7 @@
 
 # WeatherWebApp
 
-A high-performance, responsive weather application built with React, featuring a modern glassmorphism design and Samsung One UI-inspired dynamic gradients. This application includes automated global day and night detection, live regional local time tracking, and smooth CSS-driven animations that adapt seamlessly to worldwide forecasts.
-
-**[Check out the Live App](https://weather-app-rib4.vercel.app/)**
+A high-performance, responsive weather application built with React, featuring a modern glassmorphism design and Samsung One UI-inspired dynamic gradients. This application includes automated global day and night detection, live regional local time tracking, and smooth, physics-inspired CSS/SVG animations that adapt seamlessly to worldwide forecasts and extreme weather conditions. **[Check out the Live App](https://weather-app-rib4.vercel.app/)**
 
 ---
 
@@ -11,11 +9,13 @@ A high-performance, responsive weather application built with React, featuring a
 
 * **Global Forecasting & Regional Local Time:** Search any city worldwide to retrieve current meteorological data, including temperature, feels-like metrics, daily highs and lows, relative humidity, atmospheric pressure, sunrise and sunset schedules, and the precise local time for that specific region.
 * **Smart Day & Night Theme Engine:** Bypasses local device clock constraints by utilizing the target city's exact timezone offset and API condition codes to automatically switch between bright daytime aesthetics and eye-friendly dark mode gradients.
-* **Granular Weather Condition Mapping:** 
-  * *Daytime Themes:* Vibrant palettes explicitly configured for sunny, clear skies, clouds, haze, rain, snow, and thunderstorms.
-  * *Nighttime Themes:* Specialized dark palettes (`night-clear`, `night-cloudy`, `night-rainy`, `night-snowy`, `night-haze`, and `night-storm`) designed for evening visibility.
+* **Granular Weather Condition Mapping:**
+  * *Daytime Themes:* Vibrant palettes explicitly configured for sunny, clear skies, clouds, haze, rain, snow, thunderstorms, and sleet.
+  * *Nighttime Themes:* Specialized dark palettes (`night-clear`, `night-cloudy`, `night-rainy`, `night-snowy`, `night-haze`, `night-storm`, and `night-sleet`) designed for evening visibility.
+* **Advanced Extreme Weather Logic:** Custom condition triggers detect "Squalls", "Torrential Rain", "Sleet" (simultaneous rain and snow), and even simulate "Heat Lightning" on hot, highly humid, overcast days.
+* **Realistic SVG Weather Physics:** Utilizes optimized 60 FPS CSS keyframe animations paired with scalable vector graphics (SVG). Features double-strobe jagged lightning bolts with plasma drop-shadow glows, synchronized ambient cloud flashes, falling rain particles, drifting snowflakes, and rolling mist wisps.
+* **Intelligent Celestial Rendering:** The sun and moon automatically hide behind the cloud layer during heavy storms, overcast conditions, and torrential downpours for maximum immersion.
 * **Air Quality Index (US EPA):** Computes standard United States AQI metrics based on PM2.5 concentrations, delivering a detailed breakdown of both PM2.5 and PM10 microgram measurements.
-* **Custom Animated Weather Effects:** Utilizes optimized 60 FPS CSS keyframe animations for falling rain particles, drifting snowflakes, a sun glow, an enhanced moonlit night glow, moving cloud layers, and rolling mist wisps.
 * **Responsive Layout Design:** Adapts smoothly across various viewports, featuring an optimized grid configuration for desktop environments and dedicated full-width cards for mobile layouts.
 
 ---
@@ -30,18 +30,19 @@ To resolve discrepancies caused by differing geographical time zones, the applic
 
 ### 2. Theme & Day/Night Engine (`WeatherApp.jsx`)
 * **Time Validation:** Evaluates whether the API weather condition icon ends with `'n'` or if the target city's local hour falls outside daytime boundaries (before 6:00 AM or at/after 7:00 PM).
-* **State Mapping:** Evaluates active meteorological conditions (such as precipitation, atmospheric obstruction, cloud cover, and solar clarity) to assign corresponding Samsung One UI-inspired CSS gradient themes.
+* **State Mapping:** Evaluates active meteorological conditions (such as precipitation, atmospheric obstruction, cloud cover, and solar clarity) to assign corresponding Samsung One UI-inspired CSS gradient themes. Evaluates simultaneous variables to trigger complex backgrounds like `sleet` (snow + rain).
 
 ### 3. Visual Effects Pipeline (`WeatherEffects.jsx` & CSS)
-* **Particle Generation:** Leverages JavaScript array mapping to dynamically instantiate randomized particle structures for rain and snow layers.
-* **Atmospheric Styling:** Implements radial gradients for solar illumination, a pulsing lunar radiance effect (`.moon-glow-effect`) for clear nocturnal skies, blurred drifting cloud containers (`.cloud-layer`), and shifting atmospheric haze wisps (`.haze-particle-layer`).
+* **Vector Lightning Rendering:** Uses `vector-effect="non-scaling-stroke"` to maintain sharp, 2px-wide jagged lightning paths across all screen sizes. Combines CSS `drop-shadow` stacking to create a neon/plasma illusion.
+* **Particle Generation:** Leverages JavaScript array mapping to dynamically instantiate randomized particle structures for rain and snow layers, allowing them to render independently or simultaneously.
+* **Atmospheric Styling:** Implements radial gradients for solar illumination, a pulsing lunar radiance effect (`.moon-glow-effect`), blurred drifting cloud containers (`.cloud-layer`), and shifting atmospheric haze wisps. Includes conditional blockers to dynamically mount/unmount celestial glows during heavy weather events.
 
 ---
 
 ## Tech Stack
 
 * **Frontend:** React.js
-* **Styling:** Custom CSS (Glassmorphism, Flexbox, Gradients, Keyframe Animations)
+* **Styling:** Custom CSS (Glassmorphism, Flexbox, Gradients, Keyframe Animations, SVG Physics)
 * **Icons:** Material-UI (MUI)
 * **APIs:** OpenWeatherMap Weather & Air Pollution APIs
 
@@ -83,12 +84,14 @@ npm run dev
 
 Open the provided local development link (typically `http://localhost:5173`) in your web browser.
 
----
+### API Configuration Notice
 
-## API Configuration Notice
-
-To facilitate immediate out-of-the-box testing, a default free-tier OpenWeatherMap API key has been included within `SearchBox.jsx`. If you plan to fork this repository or deploy a production instance, please register for your own complimentary API key at [OpenWeatherMap](https://openweathermap.org/) and replace the existing key to prevent rate-limiting restrictions.
+To facilitate immediate out-of-the-box testing, a default free-tier OpenWeatherMap API key has been included within `SearchBox.jsx`. If you plan to fork this repository or deploy a production instance, please register for your own complimentary API key at OpenWeatherMap and replace the existing key to prevent rate-limiting restrictions.
 
 ---
 
-Developed by **Sarthak**
+*Developed by Sarthak*
+
+```
+
+```
