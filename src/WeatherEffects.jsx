@@ -1,7 +1,7 @@
 import React from 'react';
 import './WeatherEffects.css';
 
-export default function WeatherEffects({ weatherInfo, theme }) {
+function WeatherEffects({ weatherInfo, theme }) {
     if (!weatherInfo) return null;
 
     const weatherDesc = weatherInfo.weather ? weatherInfo.weather.toLowerCase() : '';
@@ -56,20 +56,20 @@ export default function WeatherEffects({ weatherInfo, theme }) {
     let cloudOpacity = 0.35;    
 
     if (isHeavyRain || isStorm) {
-        cloudCount = 10;      
-        cloudOpacity = 0.8;
+        cloudCount = 12;      
+        cloudOpacity = 0.89;
     } else if (isOvercast || isRaining) {
-        cloudCount = 8;        
-        cloudOpacity = 0.7;
+        cloudCount = 9;        
+        cloudOpacity = 0.77;
     } else if (isBroken) {
         cloudCount = 6;        
-        cloudOpacity = 0.55;
+        cloudOpacity = 0.66;
     } else if (isScattered) {
-        cloudCount = 4;     
-        cloudOpacity = 0.45;
+        cloudCount = 5;    
+        cloudOpacity = 0.55;
     } else if (isFewClouds) {
-        cloudCount = 2;     
-        cloudOpacity = 0.3;
+        cloudCount = 4;    
+        cloudOpacity = 0.45;
     }
 
     // --- SUN/MOON VISIBILITY ---
@@ -82,12 +82,12 @@ export default function WeatherEffects({ weatherInfo, theme }) {
     const showMoon = hasNightIcon && !hideSunMoon;
 
     // RAIN INTENSITY 
-    let rainDropCount = 60;     
+    let rainDropCount = 60;    
     let rainSpeedMin = 0.65;    
     let rainSpeedVariance = 0.55; 
 
     if (isLightRain) {
-        rainDropCount = 30;     
+        rainDropCount = 30;    
         rainSpeedMin = 0.95;    
         rainSpeedVariance = 0.7;
     } else if (isHeavyRain || isStorm) {
@@ -187,3 +187,14 @@ export default function WeatherEffects({ weatherInfo, theme }) {
         </div>
     );
 }
+
+
+export default React.memo(WeatherEffects, (prevProps, nextProps) => {
+    return (
+        prevProps.weatherInfo?.weather === nextProps.weatherInfo?.weather &&
+        prevProps.weatherInfo?.temp === nextProps.weatherInfo?.temp &&
+        prevProps.weatherInfo?.humidity === nextProps.weatherInfo?.humidity &&
+        prevProps.weatherInfo?.icon === nextProps.weatherInfo?.icon &&
+        prevProps.theme === nextProps.theme
+    );
+});
