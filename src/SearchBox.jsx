@@ -11,7 +11,7 @@ export default function SearchBox({ updateInfo }) {
     const API_KEY = "4af780068ac06645d7f72eafc934f4d6";
     const API_URL_AIR = "https://api.openweathermap.org/data/2.5/air_pollution?lat=";
 
-    // Helper function to convert PM2.5 to US EPA AQI standard (0-500 scale)
+    // Helper function to convert PM2.5 to US EPA AQI standard
     const calculateUSAQI = (pm) => {
         const breakpoints = [
             { lowC: 0.0, highC: 9.0, lowI: 0, highI: 50 },
@@ -28,18 +28,29 @@ export default function SearchBox({ updateInfo }) {
             }
         }
         return pm > 504.3 ? 500 : 0;
-       };
+    };
+
+    // Helper function to calculate exact local time for ANY timestamp using the 'UTC trick'
+    const formatCityTime = (timestampMillis, offsetSeconds) => {
+        const targetTime = new Date(timestampMillis + (offsetSeconds * 1000));
+        return targetTime.toLocaleTimeString('en-US', { 
+            timeZone: 'UTC', // Forces browser to ignore your local computer timezone
+            hour: 'numeric', 
+            minute: '2-digit', 
+            hour12: true 
+        });
+    };
 
     let getWeatherInfo = async () => {
         try {
-            //weather
+            // Fetch Weather
             let response = await fetch(`${API_URL}${city}&appid=${API_KEY}&units=metric`);
             let jsonResponse = await response.json();
 
             let lat = jsonResponse.coord.lat;
             let lon = jsonResponse.coord.lon;
 
-            //(AQI)
+            // Fetch AQI
             let airResponse = await fetch(`${API_URL_AIR}${lat}&lon=${lon}&appid=${API_KEY}`);
             let airJson = await airResponse.json();
 
@@ -47,22 +58,20 @@ export default function SearchBox({ updateInfo }) {
             let pm10 = airJson.list[0].components.pm10;
             let usAqi = calculateUSAQI(pm25);
 
-            let sunrise = new Date(jsonResponse.sys.sunrise * 1000).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
-            let sunset = new Date(jsonResponse.sys.sunset * 1000).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+            // --- FIXED: GLOBAL TIMEZONE CALCULATION ---
+            const offset = jsonResponse.timezone;
+            const currentUtcMillis = new Date().getTime(); // Exact real-world time in UTC
 
-            // local time & hour of the searched city
-        const timezoneOffsetSeconds = jsonResponse.timezone; // e.g., 19800 for India (+5:30)
-        const utcMillis = new Date().getTime() + (new Date().getTimezoneOffset() * 60000);
-        const cityTimeMillis = utcMillis + (timezoneOffsetSeconds * 1000);
-        const cityDate = new Date(cityTimeMillis);
-        
-        const localTimeFormatted = cityDate.toLocaleTimeString('en-US', { 
-            hour: 'numeric', 
-            minute: '2-digit', 
-            hour12: true 
-        });
-        const cityHour = cityDate.getHours();
-        
+            // Calculate formatted current local time for the target city
+            const localTimeFormatted = formatCityTime(currentUtcMillis, offset);
+            
+            // Extract the hour (0-23) for your day/night theme logic
+            const cityHour = new Date(currentUtcMillis + (offset * 1000)).getUTCHours();
+
+            // Calculate sunrise and sunset exactly in the target city's timezone
+            let sunrise = formatCityTime(jsonResponse.sys.sunrise * 1000, offset);
+            let sunset = formatCityTime(jsonResponse.sys.sunset * 1000, offset);
+
             return {
                 city: jsonResponse.name,
                 temp: jsonResponse.main.temp,
@@ -119,22 +128,16 @@ export default function SearchBox({ updateInfo }) {
                     sx={{
                         width: '100%',
                         '& .MuiOutlinedInput-root': {
-                            '& fieldset': {
-                                borderColor: 'rgba(255, 255, 255, 0.5)', //border
-                            },
-                            '&:hover fieldset': {
-                                borderColor: '#ffffff', 
-                            },
-                            '&.Mui-focused fieldset': {
-                                borderColor: '#ffffff', 
-                            },
+                            '& fieldset': { borderColor: 'rgba(255, 255, 255, 0.5)' },
+                            '&:hover fieldset': { borderColor: '#ffffff' },
+                            '&.Mui-focused fieldset': { borderColor: '#ffffff' },
                         },
                         '& .MuiInputBase-input': {
-                            color: '#ffffff !important', //User input text 
+                            color: '#ffffff !important', 
                             fontWeight: '500',
                         },
                         '& .MuiInputLabel-root': {
-                            color: 'rgba(255, 255, 255, 0.7)', //Label text
+                            color: 'rgba(255, 255, 255, 0.7)',
                         },
                         '& .MuiInputLabel-root.Mui-focused': {
                             color: '#ffffff',

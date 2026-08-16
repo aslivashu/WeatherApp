@@ -9,40 +9,57 @@ export default function WeatherEffects({ weatherInfo, theme }) {
     const humidityValue = parseInt(weatherInfo.humidity) || 0;
     const isNight = theme && theme.includes('night');
 
-    
-    // Absolute/Heavy rain or Squalls
+    // EXTREME CONDITIONS 
     const isHeavyRain = (weatherDesc.includes('heavy') && weatherDesc.includes('rain')) || 
                         weatherDesc.includes('extreme') || 
                         weatherDesc.includes('torrential') || 
                         weatherDesc.includes('squall');
     
-    // Strong Thunderstorm
-    const isStorm = weatherDesc.includes('thunder') || weatherDesc.includes('storm');
+    // Light Rain
+    const isLightRain = weatherDesc.includes('light') || weatherDesc.includes('drizzle');
     
-    // Heavily overcast
+    const isStormIcon = weatherInfo.icon === '11d' || weatherInfo.icon === '11n';
+    const isStorm = weatherDesc.includes('thunder') || weatherDesc.includes('storm') || isStormIcon;
     const isOvercast = weatherDesc.includes('overcast');
-
-    // Heat Lightning: Heavily overcast + high humidity (>85) + heat (>30°C)
     const isHeatLightning = isOvercast && humidityValue > 85 && temp > 30;
+    const isMonsoonLightning = weatherDesc.includes('rain') && humidityValue > 75 && temp > 24;
 
-    // Trigger the Lightning Effect if any of these are true
-    const isLightning = isHeavyRain || isStorm || isHeatLightning || weatherDesc.includes('squall');
+    // Trigger Lightning
+    const isLightning = isHeavyRain || isStorm || isHeatLightning || weatherDesc.includes('squall') || isMonsoonLightning;
 
-    //  STANDARD CONDITIONS
-    const isRaining = humidityValue > 85 || weatherDesc.includes('rain') || weatherDesc.includes('drizzle') || isLightning || theme.includes('sleet');
+    // STANDARD CONDITIONS
+    let isRaining = humidityValue > 85 || weatherDesc.includes('rain') || weatherDesc.includes('drizzle') || isLightning || theme.includes('sleet');
     const isSnowing = temp < 2 || weatherDesc.includes('snow') || theme.includes('sleet');
+    if (temp < -5) {
+        isRaining = false;
+    }
     const isCloudy = weatherDesc.includes('cloud') || isOvercast;
     const isHaze = weatherDesc.includes('haze') || weatherDesc.includes('fog') || weatherDesc.includes('mist');
 
+    //  SUN/MOON VISIBILITY 
+    const hideSunMoon = isHeavyRain || isOvercast || isSnowing;
     
-    // Hide sun/moon for heavy rain, overcast clouds, storms, or snow
-    const hideSunMoon = isHeavyRain || isOvercast || isStorm || isSnowing;
+    // Check OpenWeatherMap's day/night icon
+    const hasDayIcon = weatherInfo.icon ? weatherInfo.icon.endsWith('d') : !isNight;
+    const hasNightIcon = weatherInfo.icon ? weatherInfo.icon.endsWith('n') : isNight;
 
-    // Only show if it's day, it's warm or sunny/clear
-    const isSunny = !isNight && !hideSunMoon && (temp > 20 || weatherDesc.includes('sun') || weatherDesc.includes('clear'));
-    
-    // Only show moon if it's night, clear of blocking weather
-    const isClearNight = isNight && !hideSunMoon && (weatherDesc.includes('clear') || (!weatherDesc.includes('cloud') && !weatherDesc.includes('rain') && !weatherDesc.includes('haze')));
+    const showSun = hasDayIcon && !hideSunMoon;
+    const showMoon = hasNightIcon && !hideSunMoon;
+
+    // RAIN INTENSITY 
+    let rainDropCount = 60;     // Default moderate rain density
+    let rainSpeedMin = 0.65;    // Default speed
+    let rainSpeedVariance = 0.55; 
+
+    if (isLightRain) {
+        rainDropCount = 30;     
+        rainSpeedMin = 0.95;    
+        rainSpeedVariance = 0.7;
+    } else if (isHeavyRain || isStorm) {
+        rainDropCount = 100;    
+        rainSpeedMin = 0.35;    
+        rainSpeedVariance = 0.4;
+    }
 
     return (
         <div className="weather-effects-container">
@@ -50,18 +67,12 @@ export default function WeatherEffects({ weatherInfo, theme }) {
             {/* REALISTIC LIGHTNING LAYER */}
             {isLightning && (
                 <div className="lightning-container">
-                    {/* Glowing clouds behind the bolt */}
                     <div className="lightning-ambient" />
-                    
-                    {/* Bolt 1 (Left Side) */}
                     <svg className="lightning-bolt bolt-1" viewBox="0 0 100 100" preserveAspectRatio="none">
-                        {/* vectorEffect="non-scaling-stroke" keeps the bolt thin even when stretched */}
                         <polyline points="60,0 40,30 55,35 25,70 35,75 10,100" fill="none" stroke="white" strokeWidth="2" vectorEffect="non-scaling-stroke" />
                         <polyline points="40,30 20,40" fill="none" stroke="white" strokeWidth="1" vectorEffect="non-scaling-stroke" />
                         <polyline points="25,70 15,65" fill="none" stroke="white" strokeWidth="1" vectorEffect="non-scaling-stroke" />
                     </svg>
-
-                    {/* Bolt 2 (Right Side) */}
                     <svg className="lightning-bolt bolt-2" viewBox="0 0 100 100" preserveAspectRatio="none">
                         <polyline points="40,0 60,25 45,30 75,65 65,70 90,100" fill="none" stroke="white" strokeWidth="2" vectorEffect="non-scaling-stroke" />
                         <polyline points="60,25 80,30" fill="none" stroke="white" strokeWidth="1" vectorEffect="non-scaling-stroke" />
@@ -70,14 +81,14 @@ export default function WeatherEffects({ weatherInfo, theme }) {
                 </div>
             )}
 
-            {/* Rain Particles */}
+            {/* DYNAMIC Rain Particles */}
             {isRaining && (
                 <div className="rain-layer">
-                    {[...Array(40)].map((_, i) => (
+                    {[...Array(rainDropCount)].map((_, i) => (
                         <div key={`rain-${i}`} className="raindrop" 
                              style={{
                                  left: `${Math.random() * 100}%`,
-                                 animationDuration: `${0.5 + Math.random() * 0.4}s`,
+                                 animationDuration: `${rainSpeedMin + Math.random() * rainSpeedVariance}s`,
                                  animationDelay: `${Math.random() * 2}s`
                              }}
                         />
@@ -136,8 +147,8 @@ export default function WeatherEffects({ weatherInfo, theme }) {
             )}
 
             {/* Celestial Bodies */}
-            {isSunny && <div className="sun-glow-effect" />}
-            {isClearNight && <div className="moon-glow-effect" />}
+            {showSun && <div className="sun-glow-effect" />}
+            {showMoon && <div className="moon-glow-effect" />}
         </div>
     );
 }

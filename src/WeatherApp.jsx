@@ -24,6 +24,10 @@ export default function WeatherApp() {
 
       const isRaining = humidityValue > 85 || weatherDesc.includes('rain') || weatherDesc.includes('drizzle');
       const isSnowing = newInfo.temp < 2 || weatherDesc.includes('snow');
+      if (newInfo.temp < -5) {
+            isRaining = false; 
+        }
+        
       const isSleet = weatherDesc.includes('sleet') || (isRaining && isSnowing);
         
         // night detection (7 PM ~ 6 AM)

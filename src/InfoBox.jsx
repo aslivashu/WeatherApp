@@ -36,11 +36,11 @@ export default function InfoBox({ info }) {
         return <ActiveIcon className="card-icon" />;
     };
 
-    // Helper to map US EPA AQI scale (0-500) to descriptive text
+    // US EPA AQI scale (0-500) to descriptive text
         const getUSCategory = (aqi) => {
             if (aqi <= 50) return "Good";
             if (aqi <= 100) return "Moderate";
-            if (aqi <= 150) return "Sensitive Groups";
+            if (aqi <= 150) return "Sensitive";
             if (aqi <= 200) return "Unhealthy";
             if (aqi <= 300) return "Very Unhealthy";
         return "Hazardous";
