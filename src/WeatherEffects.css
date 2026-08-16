@@ -1,12 +1,12 @@
 .weather-effects-container {
-    position: fixed; /* Fixes it to the screen viewport so it never cuts off */
+    position: fixed; 
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    pointer-events: none; /* Allows clicks to pass through to buttons/inputs */
+    pointer-events: none; 
     overflow: hidden;
-    z-index: 1; /* Sits behind your content cards, above the background image */
+    z-index: 1; 
 }
 
 /* --- Rain Styling & Animation --- */
@@ -63,7 +63,7 @@
     }
 }
 
-/* --- Sunny Glow Animation --- */
+/* --- Sunny Glow (Pulsing Animation) --- */
 .sun-glow-effect {
     position: absolute;
     top: 0;
@@ -79,8 +79,7 @@
     100% { opacity: 1; }
 }
 
-/* --- Moon Glow for Clear Nights --- */
-
+/* --- Moon Glow (Pulsing Animation) --- */
 .moon-glow-effect {
     position: absolute;
     top: 0;
@@ -113,22 +112,22 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 60%;
+    height: 70%;
     pointer-events: none;
-    opacity: 0.45;
+    transition: opacity 0.5s ease;
 }
 
 .cloud-particle {
     position: absolute;
-    background: rgba(255, 255, 255, 0.4);
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.55) 0%, rgba(200, 210, 225, 0.25) 70%);
     border-radius: 50%;
-    filter: blur(25px);
+    filter: blur(30px);
     animation: driftCloud linear infinite;
 }
 
 @keyframes driftCloud {
     0% {
-        transform: translateX(-150px);
+        transform: translateX(-200px);
     }
     100% {
         transform: translateX(105vw);
@@ -164,7 +163,7 @@
     }
 }
 
-
+/* --- Lightning Layer --- */
 .lightning-container {
     position: absolute;
     top: 0;
@@ -176,16 +175,13 @@
     overflow: hidden;
 }
 
-
 .lightning-ambient {
     position: absolute;
     top: 0; left: 0;
     width: 100%; height: 100%;
     opacity: 0;
-    
     animation: lightningAmbientPhysics 15s infinite;
 }
-
 
 .lightning-bolt {
     position: absolute;
@@ -194,14 +190,12 @@
     filter: drop-shadow(0 0 5px rgba(200, 230, 255, 0.9)) drop-shadow(0 0 15px rgba(255, 255, 255, 0.8));
 }
 
-
 .bolt-1 {
     left: 15%;
     width: 25vw;
     height: 75vh;
     animation: boltStrike1 12s infinite;
 }
-
 
 .bolt-2 {
     right: 15%;
@@ -211,21 +205,15 @@
     animation: boltStrike2 12s infinite;
 }
 
-
 @keyframes lightningAmbientPhysics {
     0%, 9%, 13%, 49%, 53%, 100% { opacity: 0; }
-    
-   
     10% { opacity: 0.8; background: radial-gradient(ellipse at 25% 0%, rgba(200, 220, 255, 0.5) 0%, transparent 60%); }
     11% { opacity: 0.1; }
     12% { opacity: 0.6; }
-    
-
     50% { opacity: 0.8; background: radial-gradient(ellipse at 75% 0%, rgba(200, 220, 255, 0.5) 0%, transparent 60%); }
     51% { opacity: 0.1; }
     52% { opacity: 0.6; }
 }
-
 
 @keyframes boltStrike1 {
     0%, 9%, 13%, 100% { opacity: 0; }

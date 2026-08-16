@@ -43,13 +43,38 @@ export default function WeatherEffects({ weatherInfo, theme }) {
     if (temp < -5) {
         isRaining = false;
     }
+
     const isCloudy = weatherDesc.includes('cloud') || isOvercast || isRaining || isStorm || isHeavyRain;
     const isHaze = weatherDesc.includes('haze') || weatherDesc.includes('fog') || weatherDesc.includes('mist');
 
-    //   SUN/MOON VISIBILITY 
+    // CLOUD INTENSITY MAPPING
+    const isFewClouds = weatherDesc.includes('few clouds');
+    const isScattered = weatherDesc.includes('scattered');
+    const isBroken = weatherDesc.includes('broken');
+
+    let cloudCount = 4;        
+    let cloudOpacity = 0.35;    
+
+    if (isHeavyRain || isStorm) {
+        cloudCount = 10;      
+        cloudOpacity = 0.8;
+    } else if (isOvercast || isRaining) {
+        cloudCount = 8;        
+        cloudOpacity = 0.7;
+    } else if (isBroken) {
+        cloudCount = 6;        
+        cloudOpacity = 0.55;
+    } else if (isScattered) {
+        cloudCount = 4;     
+        cloudOpacity = 0.45;
+    } else if (isFewClouds) {
+        cloudCount = 2;     
+        cloudOpacity = 0.3;
+    }
+
+    // --- SUN/MOON VISIBILITY ---
     const hideSunMoon = isHeavyRain || isOvercast || isSnowing;
     
-    // Check OpenWeatherMap's day/night icon
     const hasDayIcon = weatherInfo.icon ? weatherInfo.icon.endsWith('d') : !isNight;
     const hasNightIcon = weatherInfo.icon ? weatherInfo.icon.endsWith('n') : isNight;
 
@@ -57,8 +82,8 @@ export default function WeatherEffects({ weatherInfo, theme }) {
     const showMoon = hasNightIcon && !hideSunMoon;
 
     // RAIN INTENSITY 
-    let rainDropCount = 60;     // Default moderate rain density
-    let rainSpeedMin = 0.65;    // Default speed
+    let rainDropCount = 60;     
+    let rainSpeedMin = 0.65;    
     let rainSpeedVariance = 0.55; 
 
     if (isLightRain) {
@@ -124,17 +149,17 @@ export default function WeatherEffects({ weatherInfo, theme }) {
                 </div>
             )}
 
-            {/* Drifting Clouds */}
+            {/* Drifting Clouds with Dynamic Intensity */}
             {isCloudy && (
-                <div className="cloud-layer">
-                    {[...Array(6)].map((_, i) => (
+                <div className="cloud-layer" style={{ opacity: cloudOpacity }}>
+                    {[...Array(cloudCount)].map((_, i) => (
                         <div key={`cloud-${i}`} className="cloud-particle" 
                              style={{
-                                 top: `${8 + (i * 14)}%`,
-                                 width: `${250 + Math.random() * 180}px`,
-                                 height: `${70 + Math.random() * 50}px`,
-                                 animationDuration: `${18 + Math.random() * 12}s`,
-                                 animationDelay: `${i * -3}s`
+                                 top: `${5 + (i * 10)}%`,
+                                 width: `${280 + Math.random() * 200}px`,
+                                 height: `${80 + Math.random() * 60}px`,
+                                 animationDuration: `${15 + Math.random() * 15}s`,
+                                 animationDelay: `${i * -2.5}s`
                              }}
                         />
                     ))}
@@ -156,7 +181,7 @@ export default function WeatherEffects({ weatherInfo, theme }) {
                 </div>
             )}
 
-            {/* Celestial Bodies */}
+            {/* Celestial Bodies  */}
             {showSun && <div className="sun-glow-effect" />}
             {showMoon && <div className="moon-glow-effect" />}
         </div>
