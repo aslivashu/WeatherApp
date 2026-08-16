@@ -19,47 +19,54 @@ export default function WeatherApp() {
         setWeatherInfo(newInfo);
         setMenuOpen(false); 
 
-        const weatherDesc = newInfo.weather ? newInfo.weather.toLowerCase() : '';
+      const weatherDesc = newInfo.weather ? newInfo.weather.toLowerCase() : '';
+      const humidityValue = parseInt(newInfo.humidity) || 0;
+
+      const isRaining = humidityValue > 85 || weatherDesc.includes('rain') || weatherDesc.includes('drizzle');
+      const isSnowing = newInfo.temp < 2 || weatherDesc.includes('snow');
+      const isSleet = weatherDesc.includes('sleet') || (isRaining && isSnowing);
         
         // night detection (7 PM ~ 6 AM)
         const currentHour = newInfo.cityHour !== undefined ? newInfo.cityHour : new Date().getHours();
         const isIconNight = newInfo.icon ? newInfo.icon.endsWith('n') : false;
         const isNightTime = isIconNight || currentHour < 6 || currentHour >= 19;
 
-        if (isNightTime) {
-            // --- NIGHT THEMES ---
-            if (newInfo.temp < 2 || weatherDesc.includes('snow')) {
-                setTheme('night-snowy');
-            } else if (weatherDesc.includes('storm') || weatherDesc.includes('thunder')) {
-                setTheme('night-storm'); // Dedicated Night Storm Theme
-            } else if (newInfo.humidity > 85 || weatherDesc.includes('rain') || weatherDesc.includes('drizzle')) {
-                setTheme('night-rainy');
-            } else if (weatherDesc.includes('haze') || weatherDesc.includes('fog') || weatherDesc.includes('mist')) {
-                setTheme('night-haze'); // Dedicated Night Haze Theme
-            } else if (weatherDesc.includes('cloud') || weatherDesc.includes('overcast')) {
-                setTheme('night-cloudy'); // Dedicated Night Cloudy Theme
-            } else {
-                setTheme('night-clear');
-            }
+       if (isNightTime) {
+        // --- NIGHT THEMES ---
+        if (weatherDesc.includes('storm') || weatherDesc.includes('thunder')) {
+            setTheme('night-storm'); 
+        } else if (isSleet) {
+            setTheme('night-sleet'); // Sets a combined background
+        } else if (isRaining) {
+            setTheme('night-rainy');
+        } else if (isSnowing) {
+            setTheme('night-snowy');
+        } else if (weatherDesc.includes('haze') || weatherDesc.includes('fog') || weatherDesc.includes('mist')) {
+            setTheme('night-haze'); 
+        } else if (weatherDesc.includes('cloud') || weatherDesc.includes('overcast')) {
+            setTheme('night-cloudy'); 
         } else {
-            // --- DAYTIME THEMES ---
-            if (newInfo.temp < 2 || weatherDesc.includes('snow')) {
-                setTheme('snowy');
-            } else if (weatherDesc.includes('storm') || weatherDesc.includes('thunder')) {
-                setTheme('storm'); // Dedicated Day Storm Theme
-            } else if (newInfo.humidity > 85 || weatherDesc.includes('rain') || weatherDesc.includes('drizzle')) {
-                setTheme('rainy');
-            } else if (weatherDesc.includes('haze') || weatherDesc.includes('fog') || weatherDesc.includes('mist')) {
-                setTheme('haze'); // Dedicated Day Haze Theme (Dusty/Muted tone)
-            } else if (weatherDesc.includes('cloud') || weatherDesc.includes('overcast')) {
-                setTheme('cloudy'); // Dedicated Day Cloudy Theme (Soft silvery-blue/gray)
-            } else if (weatherDesc.includes('clear') || weatherDesc.includes('sun')) {
-                setTheme('sunny'); 
-            } else {
-                setTheme('sunny');
-            }
+            setTheme('night-clear');
         }
-    };
+    } else {
+        // --- DAYTIME THEMES ---
+        if (weatherDesc.includes('storm') || weatherDesc.includes('thunder')) {
+            setTheme('storm'); 
+        } else if (isSleet) {
+            setTheme('sleet'); // Sets a combined background
+        } else if (isRaining) {
+            setTheme('rainy');
+        } else if (isSnowing) {
+            setTheme('snowy');
+        } else if (weatherDesc.includes('haze') || weatherDesc.includes('fog') || weatherDesc.includes('mist')) {
+            setTheme('haze'); 
+        } else if (weatherDesc.includes('cloud') || weatherDesc.includes('overcast')) {
+            setTheme('cloudy'); 
+        } else {
+            setTheme('sunny'); 
+        }
+    }
+};
 
     const formatTemp = (val) => {
         if (val === null || val === undefined || val === '') return '';

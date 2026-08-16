@@ -305,3 +305,13 @@ footer {
 .weather-app.night-storm {
     background: linear-gradient(135deg, #1b1e2b, #0d0f14);
 }
+
+/* WeatherApp.css */
+
+.weather-app.sleet {
+    background: linear-gradient(to bottom, #7b8a97, #b2c2cf);
+}
+
+.weather-app.night-sleet {
+    background: linear-gradient(to bottom, #2c3e50, #1a252f);
+}
