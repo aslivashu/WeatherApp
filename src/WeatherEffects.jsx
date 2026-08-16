@@ -33,7 +33,7 @@ export default function WeatherEffects({ weatherInfo, theme }) {
     if (temp < -5) {
         isRaining = false;
     }
-    const isCloudy = weatherDesc.includes('cloud') || isOvercast;
+    const isCloudy = weatherDesc.includes('cloud') || isOvercast || isRaining || isStorm || isHeavyRain;
     const isHaze = weatherDesc.includes('haze') || weatherDesc.includes('fog') || weatherDesc.includes('mist');
 
     //  SUN/MOON VISIBILITY 
