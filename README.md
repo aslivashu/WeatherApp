@@ -1,4 +1,4 @@
-```markdown
+
 # WeatherWebApp
 
 A high-performance, responsive weather application built with React, featuring a modern glassmorphism design and Samsung One UI-inspired dynamic gradients. This application includes automated global day and night detection, live regional local time tracking, and smooth, physics-inspired CSS/SVG animations that adapt seamlessly to worldwide forecasts and extreme weather conditions. **[Check out the Live App](https://weather-app-rib4.vercel.app/)**
@@ -91,19 +91,12 @@ To facilitate immediate out-of-the-box testing, a default free-tier OpenWeatherM
 ---
 
 ## Contributing
+Contributions are always welcome! If you'd like to improve this weather app:
+1. **Fork** the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a **Pull Request**
 
-Contributions are always welcome! If you'd like to improve this weather app using the fork and pull request workflow:
-
-1. **Fork** the repository to your own GitHub account.
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`).
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`).
-4. Push to your branch (`git push origin feature/AmazingFeature`).
-5. Open a **Pull Request** back to the main repository.
-
----
 
 *Developed by Sarthak*
-
-```
-
-```
