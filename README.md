@@ -1,7 +1,7 @@
 
 # WeatherWebApp
 
-A high-performance, responsive weather application built with React, featuring a modern glassmorphism design and Samsung One UI-inspired dynamic gradients. This application includes automated global day and night detection, live regional local time tracking, and smooth, physics-inspired CSS/SVG animations that adapt seamlessly to worldwide forecasts and extreme weather conditions. **[Check out the Live App](https://weather-app-rib4.vercel.app/)**
+A high-performance, responsive weather application built with React, featuring a modern glassmorphism design and Samsung One UI-inspired dynamic gradients. This application includes automated global day and night detection, live regional local time tracking, and smooth, physics-inspired CSS/SVG animations that adapt seamlessly to worldwide forecasts and extreme weather conditions. **[Check out the Live App]**
 
 ---
 
