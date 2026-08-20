@@ -1,6 +1,3 @@
-Here is the updated README.md file. It now reflects your recent security improvements (removing the hardcoded API key from `SearchBox.jsx` and switching to environment variables with Vite) and includes proper setup instructions for `.env`.
-
----
 
 # WeatherWebApp
 
