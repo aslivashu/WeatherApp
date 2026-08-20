@@ -7,9 +7,9 @@ export default function SearchBox({ updateInfo }) {
     let [city, setCity] = useState('');
     let [error, setError] = useState(false);
 
-    const API_URL = "https://api.openweathermap.org/data/2.5/weather?q=";
-    const API_KEY = "4af780068ac06645d7f72eafc934f4d6";
-    const API_URL_AIR = "https://api.openweathermap.org/data/2.5/air_pollution?lat=";
+    const API_URL = import.meta.env.VITE_APP_WEATHER_URL;
+    const API_KEY = import.meta.env.VITE_APP_WEATHER_API_KEY;
+    const API_URL_AIR = import.meta.env.VITE_APP_AIR_URL;
 
     // Helper function to convert PM2.5 to US EPA AQI standard
     const calculateUSAQI = (pm) => {

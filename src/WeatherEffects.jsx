@@ -82,18 +82,18 @@ function WeatherEffects({ weatherInfo, theme }) {
     const showMoon = hasNightIcon && !hideSunMoon;
 
     // RAIN INTENSITY 
-    let rainDropCount = 60;    
+    let rainDropCount = 52;    
     let rainSpeedMin = 0.65;    
-    let rainSpeedVariance = 0.55; 
+    let rainSpeedVariance = 0.66; 
 
     if (isLightRain) {
-        rainDropCount = 30;    
+        rainDropCount = 26;    
         rainSpeedMin = 0.95;    
-        rainSpeedVariance = 0.7;
+        rainSpeedVariance = 0.8;
     } else if (isHeavyRain || isStorm) {
-        rainDropCount = 100;    
+        rainDropCount = 80;    
         rainSpeedMin = 0.35;    
-        rainSpeedVariance = 0.4;
+        rainSpeedVariance = 0.5;
     }
 
     return (
