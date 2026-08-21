@@ -46,7 +46,7 @@ To resolve discrepancies caused by differing geographical time zones, the applic
 
 ## Tech Stack
 
-* **Frontend:** React.js (Vite)
+* **Frontend:** React.js
 * **Styling:** Custom CSS (Glassmorphism, Flexbox, Gradients, Keyframe Animations, SVG Physics)
 * **Icons:** Material-UI (MUI)
 * **APIs:** OpenWeatherMap Weather & Air Pollution APIs
@@ -82,16 +82,7 @@ npm install
 
 ```
 
-### Step 4: Configure Environment Variables
-
-Create a `.env` file in the root directory of your project and add your OpenWeatherMap API key using Vite's required naming convention:
-
-```env
-VITE_APP_WEATHER_API_KEY=your_actual_api_key_here
-
-```
-
-### Step 5: Start the development server
+### Step 4: Start the development server
 
 ```bash
 npm run dev
@@ -99,6 +90,10 @@ npm run dev
 ```
 
 Open the provided local development link (typically `http://localhost:5173`) in your web browser.
+
+### API Configuration Notice
+
+To facilitate immediate out-of-the-box testing, a default free-tier OpenWeatherMap API key has been included within `SearchBox.jsx`. If you plan to fork this repository or deploy a production instance, please register for your own complimentary API key at OpenWeatherMap and replace the existing key to prevent rate-limiting restrictions.
 
 ---
 
@@ -112,5 +107,10 @@ Contributions are always welcome! If you'd like to improve this weather app:
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a **Pull Request**
 
+---
+
+## License
+
+This project is open-source and available under the [MIT License](https://www.google.com/search?q=LICENSE).
 
 *Developed by Sarthak*
